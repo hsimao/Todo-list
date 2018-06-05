@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>ToDo List</title>
+</head>
+<body>
+    <header class="header">
+        <ul class="navbar container">
+            <li class="navbar-item active"><a href="#">My Tasks</a></li>
+            <li class="navbar-item"><a href="#">In Progress</a></li>
+            <li class="navbar-item"><a href="#">Completed</a></li>
+        </ul>
+    </header>
+    <section class="container">
+        <div class="todo">
+            <div class="todo-add-btn"><ion-icon name="add-circle-outline"></ion-icon>Add a new task</div>
+            <ul class="todo-list">
+                <li class="todo-item new">
+                    <span class="todo-item-title">超商取貨</span>
+                    <span class="todo-item-time">2018/06/06</span>
+                    <span class="todo-item-star"><ion-icon name="star-outline"></ion-icon></span>
+                    <span class="todo-item-done active"><ion-icon name="checkmark-circle"></ion-icon></span>
+                </li>
+                <li class="todo-item new">
+                    <span class="todo-item-title">加油</span>
+                    <span class="todo-item-time">2018/06/06</span>
+                    <span class="todo-item-star active"><ion-icon name="star"></ion-icon></span>
+                    <span class="todo-item-done"><ion-icon name="radio-button-off"></ion-icon></span>
+
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <footer class="footer">
+        footer
+    </footer>
+    <script src="https://unpkg.com/ionicons@4.1.2/dist/ionicons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
+    <script src="./js/js.js"></script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+* {
+  box-sizing: border-box; }
+
+body {
+  margin: 0; }
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0; }
+
+a {
+  text-decoration: none;
+  color: #323232; }
+
+.icon {
+  font-size: 22px; }
+
+body {
+  background-color: #f4e5c2;
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  color: #323232; }
+  body:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #8559a5;
+    transform: rotate(40deg) translate(-20%, 60%);
+    z-index: -1; }
+
+.container {
+  margin: 0 auto;
+  max-width: 768px; }
+
+.header {
+  background-color: #8559a5;
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2); }
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  .navbar-item {
+    flex: 1 1 auto;
+    text-align: center;
+    height: 70px;
+    line-height: 70px; }
+  .navbar a {
+    color: #f4e5c2;
+    letter-spacing: 1px; }
+
+.navbar-item.active {
+  background-color: #f4e5c2;
+  box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.125); }
+  .navbar-item.active a {
+    color: #8559a5; }
+
+.todo {
+  min-height: 500px;
+  margin-top: 30px;
+  padding: 16px; }
+
+.todo-add-btn {
+  padding: 12px 20px;
+  background-color: #8559a5;
+  border-radius: 2px;
+  color: #f4e5c2;
+  text-align: center;
+  text-transform: uppercase;
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2);
+  transition: all .3s; }
+  .todo-add-btn .icon {
+    position: relative;
+    top: 4px;
+    margin-right: 10px; }
+  .todo-add-btn:hover {
+    transform: translateY(1px);
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2); }
+  .todo-add-btn:hover:active {
+    transform: translateY(2px);
+    box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.125); }
+
+.todo-item {
+  display: flex;
+  margin: 12px 0;
+  padding: 20px 16px;
+  background-color: #fafaf6;
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.125); }
+  .todo-item-title {
+    width: 60%;
+    color: #4c4c4c; }
+  .todo-item-time, .todo-item-star, .todo-item-done {
+    color: #989898; }
+  .todo-item-time {
+    width: 20%; }
+  .todo-item-star {
+    width: 10%; }
+  .todo-item-done {
+    width: 10%; }
+
+.todo-item-done.active .icon {
+  color: #8559a5; }
+
+.todo-item-star.active .icon {
+  color: #8559a5; }

@@ -1,0 +1,142 @@
+// == $color ==
+$color-primary: #8559a5
+$color-primary-light: #a585bd
+$color-primary-dark: #593b6e
+$color-secondary: #6db193
+$color-thrid: #f4e5c2
+$color-black: #323232
+$color-white: #fafaf6
+// == $color End ==
+
+// == $mixin ==
+@mixin flexCenter
+    display: flex
+    align-items: center
+    justify-content: center
+
+@mixin fullTopLeft
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+
+// == $mixin End ==
+
+// == $reset ==
+*
+    box-sizing: border-box
+body
+    margin: 0
+ul
+    list-style: none
+    padding: 0
+    margin: 0
+a
+    text-decoration: none
+    color: $color-black
+// == $reset End ==
+
+.icon
+    font-size: 22px
+
+body
+    background-color: $color-thrid
+    position: relative
+    min-height: 100vh
+    overflow: hidden
+    color: $color-black
+    &:before
+        content: ''
+        +fullTopLeft
+        background-color: $color-primary
+        transform: rotate(40deg) translate(-20%, 60%)
+        z-index: -1
+
+.container
+    margin: 0 auto
+    max-width: 768px
+
+
+// == $header ==
+.header
+    background-color: $color-primary
+    box-shadow: 0 4px 6px 0 rgba(black, 0.2)
+.navbar
+    +flexCenter
+    &-item
+        flex: 1 1 auto
+        text-align: center
+        height: 70px
+        line-height: 70px
+    a
+        color: $color-thrid
+        letter-spacing: 1px
+
+.navbar-item.active
+    background-color: $color-thrid
+    box-shadow: 0 5px 5px 0 rgba(black, 0.125)
+    a
+        color: $color-primary
+
+// == $header End ==
+
+
+// == $todo ==
+.todo
+    min-height: 500px
+    margin-top: 30px
+    padding: 16px
+
+// $btn
+.todo
+    &-add-btn
+        padding: 12px 20px
+        background-color: $color-primary
+        border-radius: 2px
+        color: $color-thrid
+        text-align: center
+        text-transform: uppercase
+        box-shadow: 0 4px 6px 0 rgba(black,0.2)
+        transition: all .3s
+        .icon
+            position: relative
+            top: 4px
+            margin-right: 10px
+        &:hover
+            transform: translateY(1px)
+            box-shadow: 0 3px 5px 0 rgba(black,0.2)
+        &:hover:active
+            transform: translateY(2px)
+            box-shadow: 0 0px 0px 0 rgba(black,0.125)
+
+.todo
+    &-list
+    &-item
+        // width: 100%
+        display: flex
+        margin: 12px 0
+        padding: 20px 16px
+        background-color: $color-white
+        box-shadow: 0 4px 6px 0 rgba(black, 0.125)
+
+        &-title
+            width: 60%
+            color: lighten($color-black,10)
+        &-time,&-star,&-done
+            color: lighten($color-black,40)
+        &-time
+            width: 20%
+        &-star
+            width: 10%
+        &-done
+            width: 10%
+
+.todo-item-done.active
+    .icon
+        color: $color-primary
+.todo-item-star.active
+    .icon
+        color: $color-primary
+
+// == $todo End ==
