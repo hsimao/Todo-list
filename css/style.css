@@ -18,7 +18,7 @@ a {
   font-size: 16px;
   font-weight: 300; }
 
-.icon {
+i {
   font-size: 22px; }
 
 body {
@@ -78,9 +78,9 @@ body {
   text-align: center;
   text-transform: uppercase;
   box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2); }
-  .todo-btn .icon {
+  .todo-btn i {
     position: relative;
-    top: 5px;
+    top: 2px;
     margin-right: 10px;
     color: #f4e5c2 !important; }
   .todo-btn:hover {
@@ -93,7 +93,7 @@ body {
 .todo-btn.todo-btn--secondary {
   background-color: #fafaf6;
   color: #8559a5; }
-  .todo-btn.todo-btn--secondary .icon {
+  .todo-btn.todo-btn--secondary i {
     color: #8559a5 !important; }
 
 .todo-item-main, .todo-item-detail {
@@ -114,17 +114,21 @@ body {
     width: 10%; }
 
 .todo-item-main {
+  position: relative;
   height: 70px;
   line-height: 70px;
-  padding: 0 20px; }
+  padding: 0 20px;
+  transition: all .3s; }
+  .todo-item-main:hover {
+    background-color: #e8e8d5; }
 
 .todo-item-detail {
   padding: 20px; }
 
-.todo-main-done.active .icon {
+.todo-main-done.active i {
   color: #8559a5; }
 
-.todo-main-star.active .icon {
+.todo-main-star.active i {
   color: #8559a5; }
 
 .todo-item-detail {
@@ -142,7 +146,7 @@ body {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis; }
-  .todo-item-detail .icon {
+  .todo-item-detail i {
     flex: 0 0 auto;
     width: 30px;
     color: #8559a5; }
@@ -155,7 +159,7 @@ body {
   width: 100%;
   height: 45px;
   line-height: 45px; }
-  .todo-deadline .icon {
+  .todo-deadline i {
     margin-top: 3px; }
   .todo-deadline .input-date {
     flex: 1 1 auto;
@@ -227,11 +231,10 @@ body {
     text-align: center;
     box-shadow: none; }
 
-.todo-item-detail, .todo-item-btns {
-  display: none; }
+.todo-list.add .todo-item-detail {
+  margin-top: 0; }
 
 .todo-item.completed .todo-item-main {
-  position: relative;
   overflow: hidden; }
   .todo-item.completed .todo-item-main:before, .todo-item.completed .todo-item-main:after {
     content: '';
@@ -248,10 +251,10 @@ body {
     height: 102%;
     background-color: rgba(50, 50, 50, 0.4); }
 
-.todo-item.completed .todo-main-done.active .icon {
+.todo-item.completed .todo-main-done.active i {
   color: #8559a5; }
 
-.todo-main-star.active .icon {
+.todo-main-star.active i {
   color: #8559a5; }
 
 .footer {
@@ -269,5 +272,5 @@ body {
   .footer-link {
     color: #f4e5c2;
     margin-right: 10px; }
-    .footer-link .icon {
+    .footer-link i {
       margin-top: 3px; }
