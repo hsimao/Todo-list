@@ -15,6 +15,12 @@ $color-black-light: lighten($color-black, 40)
     align-items: center
     justify-content: center
 
+@mixin abCenter
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%,-50%)
+
 @mixin fullTopLeft
     position: absolute
     top: 0
@@ -55,7 +61,6 @@ body
     background-color: $color-thrid
     position: relative
     min-height: 100vh
-    // overflow: hidden
     color: $color-black
     &:before
         content: ''
@@ -134,7 +139,6 @@ body
     &-item-main,&-item-detail
         display: flex
         margin: 12px 0
-        padding: 20px
         background-color: $color-white
         box-shadow: 0 4px 6px 0 rgba(black, 0.125)
         .todo-main-title
@@ -148,6 +152,12 @@ body
             width: 10%
         .todo-main-done
             width: 10%
+    &-item-main
+        height: 70px
+        line-height: 70px
+        padding: 0 20px
+    &-item-detail
+        padding: 20px
 
 .todo-main-done.active
     .icon
@@ -211,44 +221,37 @@ body
 
     &-file
         display: flex
-        .input-file
-            position: relative
-            flex: 0 0 auto
-            width: 300px
-            height: 45px
-            line-height: 45px
+        .input-file-box
+            height: 40px
+            line-height: 40px
             overflow: hidden
-            outline: none
-            padding: 12px 0 0 21px
-            font-size: 16px
+            position: relative
+        .input-file-style
+            position: absolute
+            +fullTopLeft
+            background-color: $color-thrid
             color: $color-black-light
             font-weight: 300
-            letter-spacing: 1px
-            background-color: $color-thrid
-            cursor: pointer
-            box-shadow: 0 2px 4px 0 rgba(black,0.125)
-            &:hover
-                transform: translateY(1px)
-                box-shadow: 0 1px 2px 0 rgba(black,0.125)
-            &:hover:active
-                transform: translateY(2px)
-                box-shadow: 0 0px 0px 0 rgba(black,0)
+            font-size: 16px
+            padding-left: 58px
+            +moreText
             &:before
                 content: '+'
                 position: absolute
                 top: 0
                 left: 0
-                width: 90px
-                height: 100%
-                font-size: 26px
+                width: 50px
+                height: 40px
+                line-height: 36px
+                font-size: 22px
                 color: $color-thrid
                 text-align: center
                 background-color: $color-primary
-        .file-icon
-            border: solid 1px blue
-            position: absolute
+                cursor: pointer
+        .input-file
+            visibility: hidden
 
-    &-btns
+    &-item-btns
         margin-top: -12px
         display: flex
         .todo-btn
@@ -257,5 +260,54 @@ body
             box-shadow: none
 
 
+// 預設關閉
+.todo-item-detail,.todo-item-btns
+    display: none
+
+// 完成樣式
+.todo-item.completed
+    .todo-item-main
+        position: relative
+        overflow: hidden
+        &:before,&:after
+            content: ''
+            +abCenter
+        &:after
+            width: 95%
+            height: 2px
+            background-color: $color-thrid
+        &:before
+            width: 102%
+            height: 102%
+            background-color: rgba($color-black,0.4)
+    .todo-main-done.active .icon
+        color: $color-primary
+
+
+.todo-main-star.active
+    .icon
+        color: $color-primary
+
 
 // == $todo End ==
+
+
+// == $footer ==
+.footer
+    +flexCenter
+    padding: 12px 20px
+    background-color: $color-black
+    &-text
+        color: $color-thrid
+        font-weight: 300
+        font-size: 14px
+        footer-link
+        letter-spacing: 1px
+        margin-right: 10px
+    &-link
+        color: $color-thrid
+        margin-right: 10px
+        .icon
+            margin-top: 3px
+        
+// == $footer End ==
