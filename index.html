@@ -17,20 +17,63 @@
     </header>
     <section class="container">
         <div class="todo">
-            <div class="todo-add-btn"><ion-icon name="add-circle-outline"></ion-icon>Add a new task</div>
+            <div class="todo-btn"><ion-icon name="add-circle-outline"></ion-icon>Add a new task</div>
             <ul class="todo-list">
-                <li class="todo-item new">
-                    <span class="todo-item-title">超商取貨</span>
-                    <span class="todo-item-time">2018/06/06</span>
-                    <span class="todo-item-star"><ion-icon name="star-outline"></ion-icon></span>
-                    <span class="todo-item-done active"><ion-icon name="checkmark-circle"></ion-icon></span>
+                <li class="todo-item">
+                    <div class="todo-item-main">
+                        <span class="todo-main-title">超商取貨</span>
+                        <span class="todo-main-time">2018/06/06</span>
+                        <span class="todo-main-star"><ion-icon name="star-outline"></ion-icon></span>
+                        <span class="todo-main-done active"><ion-icon name="checkmark-circle"></ion-icon></span>
+                    </div>
+                    <div class="todo-item-detail">
+                        <div class="todo-deadline">
+                            <ion-icon name="calendar"></ion-icon>
+                            <div class="todo-title">Deadline</div>
+                            <input class="input-date" type="date" value="2018-06-06">
+                        </div>
+                        <div class="todo-des">
+                            <ion-icon name="create"></ion-icon>
+                            <div class="todo-title">Comment</div>
+                            <textarea class="todo-textarea" name="" id="" rows="6" placeholder="Type your memo here..."></textarea>
+                        </div>
+                        <div class="todo-file">
+                            <ion-icon name="filing"></ion-icon>
+                            <div class="todo-title">File</div>
+                            <input class="input-file" type="file">
+                        </div>
+                    </div>
+                    <div class="todo-btns">
+                        <div class="todo-btn todo-btn--secondary"><ion-icon name="close-circle-outline"></ion-icon>Cancel</div>
+                        <div class="todo-btn"><ion-icon name="add-circle-outline"></ion-icon>Add a new task</div>
+                    </div>
                 </li>
-                <li class="todo-item new">
-                    <span class="todo-item-title">加油</span>
-                    <span class="todo-item-time">2018/06/06</span>
-                    <span class="todo-item-star active"><ion-icon name="star"></ion-icon></span>
-                    <span class="todo-item-done"><ion-icon name="radio-button-off"></ion-icon></span>
+                <li class="todo-item">
+                    <div class="todo-item-main">
+                        <span class="todo-main-title">超商取貨</span>
+                        <span class="todo-main-time">2018/06/06</span>
+                        <span class="todo-main-star active"><ion-icon name="star-outline"></ion-icon></span>
+                        <span class="todo-main-done active"><ion-icon name="checkmark-circle"></ion-icon></span>
+                    </div>
+                    <div class="todo-item-detail">
+                        <div class="todo-deadline">
+                            <ion-icon name="calendar"></ion-icon>
+                            <div class="todo-title">Deadline</div>
+                            <input class="input-date" type="date" value="2018-06-06">
+                        </div>
+                        <div class="todo-des">
+                            <div class="todo-title"></div>
+                            <textarea class="todo-textarea" name="" id="" rows="6" placeholder="Type your memo here..."></textarea>
+                        </div>
+                        <div class="todo-file">
+                            <i>+</i>
+                        </div>
+                        <div class="todo-btns">
+                            <div class="todo-btn">X Cancel</div>
+                            <div class="todo-btn"><ion-icon name="add-circle-outline"></ion-icon>Add a new task</div>
+                        </div>
 
+                    </div>
                 </li>
             </ul>
         </div>

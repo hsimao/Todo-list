@@ -6,6 +6,7 @@ $color-secondary: #6db193
 $color-thrid: #f4e5c2
 $color-black: #323232
 $color-white: #fafaf6
+$color-black-light: lighten($color-black, 40)
 // == $color End ==
 
 // == $mixin ==
@@ -21,6 +22,11 @@ $color-white: #fafaf6
     width: 100%
     height: 100%
 
+@mixin moreText
+    overflow: hidden
+    white-space: nowrap
+    text-overflow: ellipsis
+
 // == $mixin End ==
 
 // == $reset ==
@@ -35,6 +41,11 @@ ul
 a
     text-decoration: none
     color: $color-black
+
+::placeholder
+    color: $color-black-light
+    font-size: 16px
+    font-weight: 300
 // == $reset End ==
 
 .icon
@@ -44,7 +55,7 @@ body
     background-color: $color-thrid
     position: relative
     min-height: 100vh
-    overflow: hidden
+    // overflow: hidden
     color: $color-black
     &:before
         content: ''
@@ -89,54 +100,162 @@ body
     padding: 16px
 
 // $btn
-.todo
-    &-add-btn
-        padding: 12px 20px
-        background-color: $color-primary
-        border-radius: 2px
-        color: $color-thrid
-        text-align: center
-        text-transform: uppercase
-        box-shadow: 0 4px 6px 0 rgba(black,0.2)
-        transition: all .3s
-        .icon
-            position: relative
-            top: 4px
-            margin-right: 10px
-        &:hover
-            transform: translateY(1px)
-            box-shadow: 0 3px 5px 0 rgba(black,0.2)
-        &:hover:active
-            transform: translateY(2px)
-            box-shadow: 0 0px 0px 0 rgba(black,0.125)
+.todo-btn
+    height: 45px
+    line-height: 45px
+    padding: 0px 10px
+    background-color: $color-primary
+    color: $color-thrid
+    text-align: center
+    text-transform: uppercase
+    box-shadow: 0 4px 6px 0 rgba(black,0.2)
+    .icon
+        position: relative
+        top: 5px
+        margin-right: 10px
+        color: $color-thrid !important
+    &:hover
+        transform: translateY(1px)
+        box-shadow: 0 3px 5px 0 rgba(black,0.2)
+    &:hover:active
+        transform: translateY(2px)
+        box-shadow: 0 0px 0px 0 rgba(black,0.125)
+
+
+.todo-btn.todo-btn--secondary
+    background-color: $color-white
+    color: $color-primary
+    .icon
+        color: $color-primary !important
+
 
 .todo
     &-list
-    &-item
-        // width: 100%
+    &-item-main,&-item-detail
         display: flex
         margin: 12px 0
-        padding: 20px 16px
+        padding: 20px
         background-color: $color-white
         box-shadow: 0 4px 6px 0 rgba(black, 0.125)
-
-        &-title
+        .todo-main-title
             width: 60%
             color: lighten($color-black,10)
-        &-time,&-star,&-done
-            color: lighten($color-black,40)
-        &-time
+        .todo-main-time,.todo-main-star,.todo-main-done
+            color: $color-black-light
+        .todo-main-time
             width: 20%
-        &-star
+        .todo-main-star
             width: 10%
-        &-done
+        .todo-main-done
             width: 10%
 
-.todo-item-done.active
+.todo-main-done.active
     .icon
         color: $color-primary
-.todo-item-star.active
+.todo-main-star.active
     .icon
         color: $color-primary
+
+//$todo-detail
+.todo
+    &-item-detail
+        display: flex
+        flex-flow: column nowrap
+        margin-top: -12px
+        // display: none
+        padding: 20px
+        background-color: #fff
+        box-shadow: 0 4px 6px 0 rgba(black, 0.125)
+        .todo-title
+            flex: 0 0 auto
+            width: 120px
+            padding: 0 10px
+            color: $color-primary
+            +moreText
+        .icon
+            flex: 0 0 auto
+            width: 30px
+            color: $color-primary
+    &-deadline,&-des,&-file
+        margin-bottom: 30px
+    &-deadline
+        display: flex
+        width: 100%
+        height: 45px
+        line-height: 45px
+        .icon
+            margin-top: 3px
+        .input-date
+            flex: 1 1 auto
+            height: 45px
+            line-height: 45px
+            padding: 0px 10px
+            border: none
+            outline: none
+            cursor: pointer
+            font-size: 16px
+            color: $color-black-light
+            background-color: $color-white
+
+    &-des
+        display: flex
+        flex-flow: row wrap
+        .todo-textarea
+            flex: 1 1 auto
+            border: none
+            padding: 10px
+            font-size: 16px
+            color: $color-black-light
+            outline: none
+            background-color: $color-white
+
+    &-file
+        display: flex
+        .input-file
+            position: relative
+            flex: 0 0 auto
+            width: 300px
+            height: 45px
+            line-height: 45px
+            overflow: hidden
+            outline: none
+            padding: 12px 0 0 21px
+            font-size: 16px
+            color: $color-black-light
+            font-weight: 300
+            letter-spacing: 1px
+            background-color: $color-thrid
+            cursor: pointer
+            box-shadow: 0 2px 4px 0 rgba(black,0.125)
+            &:hover
+                transform: translateY(1px)
+                box-shadow: 0 1px 2px 0 rgba(black,0.125)
+            &:hover:active
+                transform: translateY(2px)
+                box-shadow: 0 0px 0px 0 rgba(black,0)
+            &:before
+                content: '+'
+                position: absolute
+                top: 0
+                left: 0
+                width: 90px
+                height: 100%
+                font-size: 26px
+                color: $color-thrid
+                text-align: center
+                background-color: $color-primary
+        .file-icon
+            border: solid 1px blue
+            position: absolute
+
+    &-btns
+        margin-top: -12px
+        display: flex
+        .todo-btn
+            flex: 1 1 50%
+            text-align: center
+            box-shadow: none
+
+
 
 // == $todo End ==
