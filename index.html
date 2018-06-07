@@ -23,41 +23,50 @@
                 <ul class="todo-list add">
                     <li class="todo-item">
                         <div class="todo-btn" @click="add = !add"><i class="icon ion-md-add-circle-outline"></i>Add a new task</div>
-                        <div class="todo-item-detail" v-if="add">
-                            <div class="todo-deadline">
-                                <i class="ion-md-calendar"></i>
-                                <div class="todo-title">Deadline</div>
-                                <input class="input-date" type="date" value="2018-06-06">
-                            </div>
-                            <div class="todo-des">
-                                <i class="ion-md-create"></i>
-                                <div class="todo-title">Comment</div>
-                                <textarea class="todo-textarea" v-model="newTodo" rows="6" placeholder="Type your memo here..."></textarea>
-                            </div>
-                            <div class="todo-file">
-                                <i class="ion-md-filing"></i>
-                                <div class="todo-title">File</div>
-                                <div class="input-file-box">
-                                    <div class="input-file-style" onclick="upfile_1.click()">尚未選擇檔案</div>
-                                    <input class="input-file" type="file" id="upfile_1" onchange="fileChange(this)">
+                        <transition name="new-todo-popup">
+                            <div class="todo-item-detail" v-if="add">
+                                <div class="todo-deadline">
+                                    <i class="ion-md-calendar"></i>
+                                    <div class="todo-title">Deadline</div>
+                                    <input class="input-date-day" v-model="newTodoDay" name="day" type="date" value="2018-06-10">
+                                    <input class="input-date-time" v-model="newTodoTime" name="time" type="time" value="">
                                 </div>
+                                <div class="todo-des">
+                                    <i class="ion-md-create"></i>
+                                    <div class="todo-title">Comment</div>
+                                    <textarea class="todo-textarea" v-model="newTodoTitle" rows="6" placeholder="Type your memo here..."></textarea>
+                                </div>
+                                <div class="todo-file">
+                                    <i class="ion-md-filing"></i>
+                                    <div class="todo-title">File</div>
+                                    <div class="input-file-box">
+                                        <div class="input-file-style" onclick="upfile_1.click()">尚未選擇檔案</div>
+                                        <input class="input-file" type="file" id="upfile_1" onchange="fileChange(this)">
+                                    </div>
+                                </div>
+                                <div class="todo-error" v-if="error">{{ errorText }}</div>
                             </div>
-                        </div>
-                        <div class="todo-item-btns" v-if="add">
-                            <div class="todo-btn todo-btn--secondary"><i class="ion-md-close-circle-outline"></i>Cancel</div>
-                            <div class="todo-btn" @click="addTodo"><i class="ion-md-add-circle-outline"></i>Add a new task</div>
-                        </div>
+                        </transition>
+                        <transition name="new-todo-popup-2">
+                            <div class="todo-item-btns" v-if="add">
+                                <div class="todo-btn todo-btn--secondary" @click="cancelAdd"><i class="ion-md-close-circle-outline"></i>Cancel</div>
+                                <div class="todo-btn" @click="addTodo"><i class="ion-md-add-circle-outline"></i>Add a new task</div>
+                            </div>
+                        </transition>
                     </li>
                 </ul>
 
                 <!-- todo列表 -->
                 <ul class="todo-list">
-                    <li class="todo-item completed" v-for="item in todos">
+                    <li v-for="item in todos" class="todo-item" :class="{ 'completed' : item.completed }">
                         <div class="todo-item-main">
                             <span class="todo-main-title">{{ item.title }}</span>
-                            <span class="todo-main-time">{{ item.createTime}}</span>
-                            <span class="todo-main-star" :class="{'active' : item.important}"><i class="ion-md-star-outline"></i></span>
-                            <span class="todo-main-done active"><i class="ion-md-checkmark-circle"></i></span>
+                            <span class="todo-main-time">{{ format(item.deadline) }}</span>
+                            <div class="todo-main-star" :class="{'important' : item.important}" @click="item.important = !item.important">
+                                <i class="star"></i>
+                                <i class="star-active"></i>
+                            </div>
+                            <span class="todo-main-done" @click="item.completed = !item.completed"><i class="icon ion-md-radio-button-off"></i></span>
                         </div>
                         <div class="todo-item-detail" v-if="edit">
                             <div class="todo-deadline">
@@ -99,7 +108,6 @@
         </footer>
     </div>
 
-    <!-- <script src="https://unpkg.com/ionicons@4.1.2/dist/ionicons.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
     <script src="./js/uuidv4.js"></script>
     <script src="./js/js.js"></script>
