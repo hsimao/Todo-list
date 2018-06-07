@@ -140,41 +140,10 @@ body
     min-height: 500px
     margin-top: 30px
     padding: 16px
-
-// $btn
-.todo-btn
-    height: 45px
-    line-height: 45px
-    padding: 0px 10px
-    background-color: $color-primary
-    color: $color-thrid
-    text-align: center
-    text-transform: uppercase
-    box-shadow: 0 4px 6px 0 rgba(black,0.2)
-    i
-        position: relative
-        top: 2px
-        margin-right: 10px
-        color: $color-thrid !important
-    &:hover
-        transform: translateY(1px)
-        box-shadow: 0 3px 5px 0 rgba(black,0.2)
-    &:hover:active
-        transform: translateY(2px)
-        box-shadow: 0 0px 0px 0 rgba(black,0.125)
-
-
-.todo-btn.todo-btn--secondary
-    background-color: $color-white
-    color: $color-primary
-    i
-        color: $color-primary !important
-
-
-.todo
+    &-item
+        margin: 20px 0
     &-item-main,&-item-detail
         display: flex
-        margin: 12px 0
         background-color: $color-white
         box-shadow: 0 4px 6px 0 rgba(black, 0.125)
         .todo-main-title
@@ -203,8 +172,8 @@ body
 
     &-item-main
         position: relative
-        height: 70px
-        line-height: 70px
+        height: 60px
+        line-height: 60px
         padding: 0 20px
         transition: all .3s
         &:hover
@@ -227,8 +196,6 @@ body
     &-item-detail
         display: flex
         flex-flow: column nowrap
-        margin-top: -12px
-        // display: none
         padding: 20px
         background-color: #fff
         box-shadow: 0 4px 6px 0 rgba(black, 0.125)
@@ -251,7 +218,7 @@ body
         line-height: 45px
         i
             margin-top: 3px
-        .input-date-day,.input-date-time
+        .input-date
             flex: 1 1 auto
             height: 45px
             line-height: 45px
@@ -274,6 +241,7 @@ body
             color: $color-black-light
             outline: none
             background-color: $color-white
+            resize: none
 
     &-file
         display: flex
@@ -321,13 +289,42 @@ body
             text-align: center
             box-shadow: none
 
+// $btn
+.todo-btn
+    height: 45px
+    line-height: 45px
+    padding: 0px 10px
+    background-color: $color-primary
+    color: $color-thrid
+    text-align: center
+    text-transform: uppercase
+    box-shadow: 0 4px 6px 0 rgba(black,0.2)
+    i
+        position: relative
+        top: 2px
+        margin-right: 10px
+        color: $color-thrid !important
+    &:hover
+        transform: translateY(1px)
+        box-shadow: 0 3px 5px 0 rgba(black,0.2)
+    &:hover:active
+        transform: translateY(2px)
+        box-shadow: 0 0px 0px 0 rgba(black,0.125)
+
+.todo-btn.todo-btn--secondary
+    background-color: $color-white
+    color: $color-primary
+    i
+        color: $color-primary !important
+
+.todo-btn.todo-btn--danger
+    background-color: $color-red
+    color: $color-white
+    i
+        color: $color-white !important
 
 .todo-list.add .todo-item-detail
     margin-top: 0
-
-// 預設關閉
-.todo-item-detail,.todo-item-btns
-    // display: none
 
 
 

@@ -12,9 +12,9 @@
     <div id="app">
         <header class="header">
             <ul class="navbar container">
-                <li class="navbar-item active"><a href="#">My Tasks</a></li>
-                <li class="navbar-item"><a href="#">In Progress</a></li>
-                <li class="navbar-item"><a href="#">Completed</a></li>
+                <li class="navbar-item active" @click.prevent="show = 'all'"><a href="#">My Tasks</a></li>
+                <li class="navbar-item" @click.prevent="show = 'active'"><a href="#">In Progress</a></li>
+                <li class="navbar-item" @click.prevent="show = 'completed'"><a href="#">Completed</a></li>
             </ul>
         </header>
         <section class="container">
@@ -28,13 +28,12 @@
                                 <div class="todo-deadline">
                                     <i class="ion-md-calendar"></i>
                                     <div class="todo-title">Deadline</div>
-                                    <input class="input-date-day" v-model="newTodoDay" name="day" type="date" value="2018-06-10">
-                                    <input class="input-date-time" v-model="newTodoTime" name="time" type="time" value="">
+                                    <input id="date" type="date" class="input-date" v-model="newDeadline">
                                 </div>
                                 <div class="todo-des">
                                     <i class="ion-md-create"></i>
                                     <div class="todo-title">Comment</div>
-                                    <textarea class="todo-textarea" v-model="newTodoTitle" rows="6" placeholder="Type your memo here..."></textarea>
+                                    <textarea class="todo-textarea" v-model="newTitle" rows="6" placeholder="Type your memo here..."></textarea>
                                 </div>
                                 <div class="todo-file">
                                     <i class="ion-md-filing"></i>
@@ -58,45 +57,51 @@
 
                 <!-- todo列表 -->
                 <ul class="todo-list">
-                    <li v-for="item in todos" class="todo-item" :class="{ 'completed' : item.completed }">
-                        <div class="todo-item-main">
+                    <li v-for="item in filterTodo"
+                        class="todo-item"
+                        :class="{ 'completed' : item.completed }"
+                        :id="item.id">
+                        <div class="todo-item-main" @click="Edit(item)">
                             <span class="todo-main-title">{{ item.title }}</span>
-                            <span class="todo-main-time">{{ format(item.deadline) }}</span>
-                            <div class="todo-main-star" :class="{'important' : item.important}" @click="item.important = !item.important">
+                            <span class="todo-main-time">{{ item.deadline }}</span>
+                            <div class="todo-main-star" :class="{'important' : item.important}" @click.stop="update('important',item.id)">
                                 <i class="star"></i>
                                 <i class="star-active"></i>
                             </div>
-                            <span class="todo-main-done" @click="item.completed = !item.completed"><i class="icon ion-md-radio-button-off"></i></span>
+                            <span class="todo-main-done" @click.stop="update('completed',item.id)"><i class="icon ion-md-radio-button-off"></i></span>
                         </div>
-                        <div class="todo-item-detail" v-if="edit">
-                            <div class="todo-deadline">
-                                <i class="ion-md-calendar"></i>
-                                <div class="todo-title">Deadline</div>
-                                <input class="input-date" type="date" value="2018-06-06">
-                            </div>
-                            <div class="todo-des">
-                                <i class="ion-md-create"></i>
-                                <div class="todo-title">Comment</div>
-                                <textarea class="todo-textarea" name="" id="" rows="6" placeholder="Type your memo here..."></textarea>
-                            </div>
-                            <div class="todo-file">
-                                <i class="ion-md-filing"></i>
-                                <div class="todo-title">File</div>
-                                <div class="input-file-box">
-                                    <div class="input-file-style" onclick="upfile_1.click()">尚未選擇檔案</div>
-                                    <input class="input-file" type="file" id="upfile_1" onchange="fileChange(this)">
+                        <transition name="new-todo-popup">
+                            <div class="todo-item-detail" v-if="cacheTodo.id == item.id && edit">
+                                <div class="todo-deadline">
+                                    <i class="ion-md-calendar"></i>
+                                    <div class="todo-title">Deadline</div>
+                                    <input class="input-date" type="date" v-model="cacheDeadline">
+                                </div>
+                                <div class="todo-des">
+                                    <i class="ion-md-create"></i>
+                                    <div class="todo-title">Comment</div>
+                                    <textarea class="todo-textarea" v-model="cacheTitle" rows="6" placeholder="Type your memo here...">{{item.title}}</textarea>
+                                </div>
+                                <div class="todo-file">
+                                    <i class="ion-md-filing"></i>
+                                    <div class="todo-title">File</div>
+                                    <div class="input-file-box">
+                                        <div class="input-file-style" onclick="upfile_1.click()">尚未選擇檔案</div>
+                                        <input class="input-file" type="file" id="upfile_1" onchange="fileChange(this)">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="todo-item-btns" v-if="edit">
-                            <div class="todo-btn todo-btn--secondary"><i class="ion-md-close-circle-outline"></i>Cancel</div>
-                            <div class="todo-btn"><i class="ion-md-add-circle-outline"></i>Add a new task</div>
-                        </div>
+                        </transition>
+                        <transition name="new-todo-popup-2">
+                            <div class="todo-item-btns" v-if="cacheTodo.id == item.id && edit">
+                                <div class="todo-btn todo-btn--secondary" @click="cancelEdit"><i class="ion-md-close-circle-outline"></i>Cancel</div>
+                                <div class="todo-btn todo-btn--danger" @click="removeTodo(item.id)"><i class="icon ion-md-trash"></i>delete</div>
+                                <div class="todo-btn" @click="saveEdit(item)"><i class="ion-md-add-circle-outline"></i>Add a new task</div>
+                            </div>
+                        </transition>
                     </li>
                 </ul>
-                <div class="todo-text">
-                    2 tasks left
-                </div>
+                <div class="todo-text"> {{activeCount}} tasks left </div>
             </div>
         </section>
         <footer class="footer">

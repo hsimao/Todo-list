@@ -6,6 +6,10 @@ function fileChange(value){
     console.log(fileName)
 }
 
+document.addEventListener('click', function(e){
+    // console.log('clientY ', e.clientY)
+    // console.log('clientX ',e.clientX)
+})
 var app = new Vue({
     el: '#app',
     data: {
@@ -17,12 +21,12 @@ var app = new Vue({
             completed: false,
             important: false
         }],
-        newTodoTitle: '',
-        newTodoDay: '',
-        newTodoTime: '',
+        newTitle: '',
+        newDeadline: '2018-10-10',
         show: 'all',
         cacheTodo: {},
         cacheTitle: '',
+        cacheDeadline: '',
         add: false,
         edit: false,
         error: false,
@@ -38,24 +42,21 @@ var app = new Vue({
             }
         },
         addTodo() {
-            if (!this.newTodoTitle.trim()) {
+            if (!this.newTitle.trim()) {
                 this.error = true
                 this.errorText = '尚未輸入文字'
                 return
             }
-            if (!this.newTodoDay) {
+            if (!this.newDeadline) {
                 this.error = true
                 this.errorText = '請輸入完整時間'
                 return
             }
-            if (!this.newTodoTime) this.newTodoTime = '00:00:00'
-            newDeadline = new Date(`${this.newTodoDay} ${this.newTodoTime}`).getTime()
-
             this.todos.push({
                 id: uuidv4(),
-                title: this.newTodoTitle,
+                title: this.newTitle,
                 createTime: new Date().getTime(),
-                deadline: newDeadline,
+                deadline: this.newDeadline,
                 completed: false,
                 important: false
             })
@@ -71,15 +72,44 @@ var app = new Vue({
             this.newTodoDay = ''
             this.add = false
         },
+        Edit(item) {
+            this.edit = !this.edit
+            this.cacheTodo = item
+            this.cacheTitle = item.title
+            this.cacheDeadline = item.deadline
+        },
+        cancelEdit() {
+            this.cacheTodo = {}
+        },
+        saveEdit(item) {
+            item.title = this.cacheTitle
+            item.deadline = this.cacheDeadline
+            this.saveTodoInLocal()
+            this.cacheTodo = {}
+            this.edit = !this.edit
+        },
+        update(type ,id) {
+            this.todos.forEach((item)=>{
+                if (item.id === id) {
+                    item[type] = !item[type]
+                }
+            })
+            this.saveTodoInLocal()
+        },
+        removeTodo(id){
+            let target = null
+            this.todos.forEach((item, index)=>{
+                if (item.id === id) target = index
+            })
+            this.todos.splice(target, 1)
+            this.edit = !this.edit
+        },
         format(timestamp) {
             const time = new Date(timestamp)
-            let s = time.getSeconds()
-            let m = time.getMinutes()
-            let h = time.getHours()
             let d = time.getDate()
             let M = time.getMonth()+1
             let Y = time.getFullYear()
-            return `${Y}/${M}/${d} ${h}:${m}:${s}`
+            return `${Y}-${M}-${d}`
         },
         fileChange(value) {
             let fileName = value.files[0].name
@@ -87,8 +117,29 @@ var app = new Vue({
         }
     },
     computed: {
-
-
+        activeCount: function() {
+            let count = 0
+            this.todos.forEach((item)=>{
+                if (!item.completed) count++
+            })
+            return count
+        },
+        filterTodo() {
+            let newTodos = []
+            if (this.show === 'all') return this.todos
+            if (this.show === 'active') {
+                this.todos.forEach((item)=>{
+                    if (!item.completed) newTodos.push(item)
+                })
+                return newTodos
+            }
+            if (this.show === 'completed') {
+                this.todos.forEach((item)=>{
+                    if (item.completed) newTodos.push(item)
+                })
+                return newTodos
+            }
+        }
     },
     created(){
         this.todos = this.getSavedTodos()
