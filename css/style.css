@@ -67,6 +67,8 @@ body {
   min-height: calc(90vh - 60px);
   margin-top: 30px;
   padding: 16px; }
+  .todo-text {
+    margin-top: 15px; }
   .todo-item:nth-child(even) .todo-item-main {
     background-color: #f4e5c2; }
   .todo-item-main, .todo-item-detail {
