@@ -12,9 +12,9 @@
     <div id="app">
         <header class="header">
             <ul class="navbar container">
-                <li class="navbar-item active" @click.prevent="show = 'all'"><a href="#">My Tasks</a></li>
-                <li class="navbar-item" @click.prevent="show = 'active'"><a href="#">In Progress</a></li>
-                <li class="navbar-item" @click.prevent="show = 'completed'"><a href="#">Completed</a></li>
+                <li class="navbar-item" :class="{'active' : show === 'all'}" @click.prevent="show = 'all'"><a href="#">My Tasks</a></li>
+                <li class="navbar-item" :class="{'active' : show === 'active'}" @click.prevent="show = 'active'"><a href="#">In Progress</a></li>
+                <li class="navbar-item" :class="{'active' : show === 'completed'}" @click.prevent="show = 'completed'"><a href="#">Completed</a></li>
             </ul>
         </header>
         <section class="container">
@@ -22,7 +22,7 @@
                 <!-- 新增 -->
                 <ul class="todo-list add">
                     <li class="todo-item">
-                        <div class="todo-btn" @click="add = !add"><i class="icon ion-md-add-circle-outline"></i>Add a new task</div>
+                        <div class="todo-btn todo-btn-add" @click="addShow"><i class="icon ion-md-add-circle-outline"></i>Add a new task</div>
                         <transition name="new-todo-popup">
                             <div class="todo-item-detail" v-if="add">
                                 <div class="todo-deadline">

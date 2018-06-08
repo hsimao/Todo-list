@@ -97,11 +97,14 @@ i
 body
     background-color: $color-thrid
     position: relative
-    min-height: 100vh
     color: $color-black
     &:before
         content: ''
-        +fullTopLeft
+        position: fixed
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
         background-color: $color-primary
         transform: rotate(40deg) translate(-20%, 60%)
         z-index: -1
@@ -120,8 +123,8 @@ body
     &-item
         flex: 1 1 auto
         text-align: center
-        height: 70px
-        line-height: 70px
+        height: 60px
+        line-height: 60px
     a
         color: $color-thrid
         letter-spacing: 1px
@@ -137,11 +140,14 @@ body
 
 // == $todo ==
 .todo
-    min-height: 500px
+    min-height: calc(90vh - 60px)
     margin-top: 30px
     padding: 16px
     &-item
-        margin: 20px 0
+        // margin: 16px 0
+    &-item:nth-child(even)
+        .todo-item-main
+            background-color: $color-thrid
     &-item-main,&-item-detail
         display: flex
         background-color: $color-white
@@ -153,18 +159,18 @@ body
         .todo-main-time,.todo-main-star,.todo-main-done
             color: $color-black-light
         .todo-main-time
-            width: 30%
+            width: 25%
             font-size: 14px
             +moreText
         .todo-main-star
             position: relative
-            width: 10%
+            width: 15%
             cursor: pointer
             .star
-                +star($color-thrid, 14px)
+                +star($color-black-light, 14px)
                 pointer-events: none
             .star-active
-                +star($color-thrid, 5px)
+                +star($color-black-light, 5px)
                 pointer-events: none
         .todo-main-done
             width: 10%
@@ -246,6 +252,7 @@ body
     &-file
         display: flex
         .input-file-box
+            flex: 1 1 auto
             height: 40px
             line-height: 40px
             overflow: hidden
@@ -282,12 +289,26 @@ body
         background-color: $color-thrid
 
     &-item-btns
-        margin-top: -12px
         display: flex
+        margin-bottom: 20px
         .todo-btn
             flex: 1 1 50%
             text-align: center
             box-shadow: none
+
+// $RWD
+@media (max-width: 568px)
+    .todo-deadline, .todo-des, .todo-file
+        flex-wrap: wrap
+        height: initial
+        line-height: 45px
+        margin-bottom: 40px
+        .todo-title
+            flex: 1 1 auto
+            width: 80%
+        i
+            margin-top: 0px
+
 
 // $btn
 .todo-btn
@@ -299,6 +320,7 @@ body
     text-align: center
     text-transform: uppercase
     box-shadow: 0 4px 6px 0 rgba(black,0.2)
+    +moreText
     i
         position: relative
         top: 2px
@@ -311,6 +333,9 @@ body
         transform: translateY(2px)
         box-shadow: 0 0px 0px 0 rgba(black,0.125)
 
+.todo-btn.todo-btn-add
+    height: 60px
+    line-height: 60px
 .todo-btn.todo-btn--secondary
     background-color: $color-white
     color: $color-primary
@@ -326,6 +351,10 @@ body
 .todo-list.add .todo-item-detail
     margin-top: 0
 
+@media (max-width: 568px)
+    .todo-btn
+        font-size: 16px
+        padding: 0 5px
 
 
 // 完成樣式
@@ -348,7 +377,12 @@ body
         content: "\f2bb"
         color: $color-primary
 
-
+@keyframes blur
+    100%
+        transform: scale(2)
+        transform-origin: 50% 50%
+        opacity: 0
+        filter: blur(1px)
 
 // == $todo End ==
 

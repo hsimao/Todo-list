@@ -41,6 +41,10 @@ var app = new Vue({
                 return []
             }
         },
+        addShow() {
+            this.add = !this.add
+            if (this.add) this.edit = false
+        },
         addTodo() {
             if (!this.newTitle.trim()) {
                 this.error = true
@@ -58,7 +62,8 @@ var app = new Vue({
                 createTime: new Date().getTime(),
                 deadline: this.newDeadline,
                 completed: false,
-                important: false
+                important: false,
+                isBlur: false
             })
             this.saveTodoInLocal()
             this.cancelAdd()
@@ -67,13 +72,13 @@ var app = new Vue({
             localStorage.setItem('todos', JSON.stringify(this.todos))
         },
         cancelAdd() {
-            this.newTodoTitle = ''
-            this.newTodoTime = ''
-            this.newTodoDay = ''
+            this.newTitle = ''
+            this.newDeadline = ''
             this.add = false
         },
         Edit(item) {
             this.edit = !this.edit
+            this.add = false
             this.cacheTodo = item
             this.cacheTitle = item.title
             this.cacheDeadline = item.deadline
@@ -88,7 +93,7 @@ var app = new Vue({
             this.cacheTodo = {}
             this.edit = !this.edit
         },
-        update(type ,id) {
+        update(type, id) {
             this.todos.forEach((item)=>{
                 if (item.id === id) {
                     item[type] = !item[type]
@@ -126,19 +131,36 @@ var app = new Vue({
         },
         filterTodo() {
             let newTodos = []
-            if (this.show === 'all') return this.todos
+            if (this.show === 'all') newTodos = this.todos
             if (this.show === 'active') {
                 this.todos.forEach((item)=>{
                     if (!item.completed) newTodos.push(item)
                 })
-                return newTodos
             }
             if (this.show === 'completed') {
                 this.todos.forEach((item)=>{
                     if (item.completed) newTodos.push(item)
                 })
-                return newTodos
             }
+
+            // 時間排序
+            newTodos.sort((a, b)=>{
+                if (a.createTime > b.createTime) {
+                    return -1
+                } else if (a.createTime < b.createTime) {
+                    return 1
+                } else {
+                    return 0
+                }
+            })
+            // 標記為重要的向上排列
+            return newTodos.sort((a, b)=>{
+                if (a.important) {
+                    return -1
+                } else{
+                    return 1
+                }
+            })
         }
     },
     created(){
