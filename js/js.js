@@ -2,14 +2,8 @@
 function fileChange(value){
     let fileName = value.files[0].name
     value.previousElementSibling.innerText = fileName
-    console.log(value.previousElementSibling)
-    console.log(fileName)
 }
 
-document.addEventListener('click', function(e){
-    // console.log('clientY ', e.clientY)
-    // console.log('clientX ',e.clientX)
-})
 var app = new Vue({
     el: '#app',
     data: {
