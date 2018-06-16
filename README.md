@@ -9,4 +9,4 @@ live demo https://hsimao.github.io/Todo-list/
 4. 待辦狀態：全部顯示(預設)、待處理、已處理
 
 ### 操作畫面
-![](https://github.com/hsimao/Todo-list/master/image/todolist.git?raw=true)
+![image](https://github.com/hsimao/Todo-list/blob/master/todolist.gif)
